@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "better_cbs",
+  "version": "${version}",
+  "name": "Better Chiseled Bookshelf",
+  "description": "",
+  "authors": [
+    ""
+  ],
+  "contact": {
+    "homepage": ""
+  },
+  "license": "MIT",
+  "icon": "assets/better_cbs/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "aboe.bcbs.fabric.Better_cbsFabric"
+    ],
+    "client": [
+      "aboe.bcbs.fabric.client.Better_cbsFabricClient"
+    ]
+  },
+  "mixins": [
+    "better_cbs.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.10",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "architectury": ">=9.2.14",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
