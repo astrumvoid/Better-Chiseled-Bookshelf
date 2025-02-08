@@ -1,11 +1,10 @@
-package aboe.bcbs.others;
+package aboe.bcbs.util;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-public interface EnchantmentPower {
+public interface EnchantmentPowerProvider {
     /**
      * Return the enchantment power for this block. (Normal bookshelves return 1)
      *
@@ -14,5 +13,6 @@ public interface EnchantmentPower {
      * @param blockPos   The block position.
      * @return The enchantment power value.
      */
-    float enchantmentPower(BlockState blockState, Level world, BlockPos blockPos);
+
+    float getEnchantmentPower(BlockState blockState, Level world, BlockPos blockPos);
 }

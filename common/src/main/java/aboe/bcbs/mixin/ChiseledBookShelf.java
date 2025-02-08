@@ -1,7 +1,9 @@
 package aboe.bcbs.mixin;
 
-import aboe.bcbs.others.EnchantmentPower;
+import aboe.bcbs.util.EnchantmentPowerProvider;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -11,9 +13,18 @@ import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(ChiseledBookShelfBlock.class)
-public abstract class ChiseledBookShelf extends BaseEntityBlock implements EnchantmentPower {
+public abstract class ChiseledBookShelf extends BaseEntityBlock implements EnchantmentPowerProvider {
+
+    @Unique
+    private static boolean multiplyNormal         = true;
+    private static final byte multiplier          = 2;
+    private static final float normalBookPower    = 0.1666666666666667f;
+    private static final float enchantedPower     = normalBookPower * 2;
+    private static final float enchantedBookPower = (multiplyNormal) ? normalBookPower * multiplier : enchantedPower;
 
     protected ChiseledBookShelf(Properties properties) {
         super(properties);
@@ -23,27 +34,35 @@ public abstract class ChiseledBookShelf extends BaseEntityBlock implements Encha
     public int getAnalogOutputSignal(BlockState blockState, Level world, BlockPos blockPos){
         if (world.isClientSide) return 0;
 
+        //If set to false, will go back to the default "Last Interacted Slot"
+        boolean ModifyRedstoneOutput = true;
         BlockEntity shelf = world.getBlockEntity(blockPos);
 
-        // Checks if the slot has a book in it. If it has, it will add a value according to the type of book.
+        //Checks if the slot has a book in it. If it has, adds a value according to the type of book.
         if (shelf instanceof ChiseledBookShelfBlockEntity shelfEntity) {
+            if (ModifyRedstoneOutput){
             int power = 0;
-            for (int slot = 0; slot < 6; slot++)
-                if (!shelfEntity.getItem(slot).isEmpty())
-                    power += (shelfEntity.getItem(slot).is(Items.ENCHANTED_BOOK)) ? 2 : 1 ;
+
+            for (int slot = 0; slot < 6; slot++) //Checks each slot.
+                if (!shelfEntity.getItem(slot).isEmpty()) //Adds 2 of power to enchanted books and 1 to normal books.
+                    power += (shelfEntity.getItem(slot).is(Items.ENCHANTED_BOOK)) ? 2 : 1;
 
             return power;
+            } else return shelfEntity.getLastInteractedSlot() + 1; //Minecraft Default
         }
         else return 0;
     }
 
+    //It's just a copy of the "GetAnalogOutputSignal" code, but it returns a float value instead.
+    //The float is converted into an int in the end, but it's useful to make whole numbers with more shelf that provides less or more power
     @Override
-    public float enchantmentPower(BlockState state,Level world, BlockPos pos) {
+    public float getEnchantmentPower(BlockState state, Level world, BlockPos pos) {
         float power = 0;
+
         if (world.getBlockEntity(pos) instanceof ChiseledBookShelfBlockEntity shelfBlock) {
             for (byte slot = 0; slot < 6; slot++)
                 if (!shelfBlock.getItem(slot).isEmpty())
-                    power += (shelfBlock.getItem(slot).is(Items.ENCHANTED_BOOK)) ? 0.21f : 0.1666666666666667f;
+                    power += (shelfBlock.getItem(slot).is(Items.ENCHANTED_BOOK)) ? enchantedBookPower : normalBookPower;
         }
         return power;
     }

@@ -9,6 +9,5 @@ public final class Better_cbs {
 
     public static void init() {
     logger.info("Upgrading Chiseled Bookshelves...");
-        // Write common init code here.
     }
 }

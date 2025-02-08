@@ -1,8 +1,7 @@
 package aboe.bcbs.mixin;
 
 
-import aboe.bcbs.others.EnchantmentPower;
-import net.minecraft.core.BlockPos;
+import aboe.bcbs.util.EnchantmentPowerUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
@@ -47,18 +46,9 @@ public abstract class OverrideEnchantmentPower extends AbstractContainerMenu {
         if (container == this.enchantSlots) {
             ItemStack itemStack = container.getItem(0);
             if (!itemStack.isEmpty() && itemStack.isEnchantable()) {
-                this.access.execute((level, blockPos) -> {
-                    float enchantPower = 0;
-
-                    for (BlockPos shelfPos : EnchantmentTableBlock.BOOKSHELF_OFFSETS) {
-                        if (level.getBlockState(blockPos.offset(shelfPos)).getBlock() instanceof EnchantmentPower blockPower)
-                            enchantPower += blockPower.enchantmentPower(level.getBlockState(blockPos.offset(shelfPos)), level, blockPos.offset(shelfPos));
-                        else if (EnchantmentTableBlock.isValidBookShelf(level, blockPos, shelfPos)) {
-                            ++enchantPower;
-                        }
-                        System.out.println(enchantPower);
-                    }
-
+                this.access.execute((world, originBlockPos) -> {
+                    float enchantPower = EnchantmentPowerUtils.getEnchantmentPower(
+                            world, originBlockPos, EnchantmentTableBlock.BOOKSHELF_OFFSETS);
 
                     this.random.setSeed(this.enchantmentSeed.get());
 
