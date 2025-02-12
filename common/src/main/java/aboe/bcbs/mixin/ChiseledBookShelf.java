@@ -2,8 +2,6 @@ package aboe.bcbs.mixin;
 
 import aboe.bcbs.util.EnchantmentPowerProvider;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -13,18 +11,18 @@ import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(ChiseledBookShelfBlock.class)
 public abstract class ChiseledBookShelf extends BaseEntityBlock implements EnchantmentPowerProvider {
 
-    @Unique
-    private static boolean multiplyNormal         = true;
-    private static final byte multiplier          = 2;
-    private static final float normalBookPower    = 0.1666666666666667f;
-    private static final float enchantedPower     = normalBookPower * 2;
-    private static final float enchantedBookPower = (multiplyNormal) ? normalBookPower * multiplier : enchantedPower;
+    @Unique private static boolean better_cbs$multiplyNormal = true;
+    @Unique private static byte better_cbs$multiplier = 2;
+    @Unique private static float better_cbs$normalBookPower = 0.1666666666666667f;
+    @Unique private static float better_cbs$enchantedPower = better_cbs$normalBookPower * 2;
+    @Unique private static float better_cbs$enchantedBookPower = (better_cbs$multiplyNormal)
+            ? better_cbs$normalBookPower * better_cbs$multiplier
+            : better_cbs$enchantedPower;
 
     protected ChiseledBookShelf(Properties properties) {
         super(properties);
@@ -62,7 +60,7 @@ public abstract class ChiseledBookShelf extends BaseEntityBlock implements Encha
         if (world.getBlockEntity(pos) instanceof ChiseledBookShelfBlockEntity shelfBlock) {
             for (byte slot = 0; slot < 6; slot++)
                 if (!shelfBlock.getItem(slot).isEmpty())
-                    power += (shelfBlock.getItem(slot).is(Items.ENCHANTED_BOOK)) ? enchantedBookPower : normalBookPower;
+                    power += (shelfBlock.getItem(slot).is(Items.ENCHANTED_BOOK)) ? better_cbs$enchantedBookPower : better_cbs$normalBookPower;
         }
         return power;
     }

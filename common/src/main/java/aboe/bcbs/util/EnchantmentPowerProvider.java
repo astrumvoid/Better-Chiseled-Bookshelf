@@ -5,6 +5,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 public interface EnchantmentPowerProvider {
+
     /**
      * Return the enchantment power for this block. (Normal bookshelves return 1)
      *
@@ -13,6 +14,5 @@ public interface EnchantmentPowerProvider {
      * @param blockPos   The block position.
      * @return The enchantment power value.
      */
-
     float getEnchantmentPower(BlockState blockState, Level world, BlockPos blockPos);
 }

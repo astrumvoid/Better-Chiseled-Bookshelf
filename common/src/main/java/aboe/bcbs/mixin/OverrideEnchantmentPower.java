@@ -2,6 +2,7 @@ package aboe.bcbs.mixin;
 
 
 import aboe.bcbs.util.EnchantmentPowerUtils;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
@@ -14,12 +15,12 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.List;
 
 @Mixin(EnchantmentMenu.class)
 public abstract class OverrideEnchantmentPower extends AbstractContainerMenu {
-
 
     @Shadow @Final private Container enchantSlots;
 
@@ -41,14 +42,20 @@ public abstract class OverrideEnchantmentPower extends AbstractContainerMenu {
         super(menuType, i);
     }
 
+    @Unique
+    private static final boolean better_cbs$bigger_table = true;
+    @Unique
+    private static final List<BlockPos> better_cbs$bigger = BlockPos.betweenClosedStream(-4, 0, -4, 4, 1, 4).map(BlockPos::immutable).toList();
+    @Unique
+    private static final List<BlockPos> BOOKSHELF_OFFSETS = (better_cbs$bigger_table) ? better_cbs$bigger : EnchantmentTableBlock.BOOKSHELF_OFFSETS;
+
     @Override
     public void slotsChanged(Container container) {
         if (container == this.enchantSlots) {
             ItemStack itemStack = container.getItem(0);
             if (!itemStack.isEmpty() && itemStack.isEnchantable()) {
                 this.access.execute((world, originBlockPos) -> {
-                    float enchantPower = EnchantmentPowerUtils.getEnchantmentPower(
-                            world, originBlockPos, EnchantmentTableBlock.BOOKSHELF_OFFSETS);
+                    float enchantPower = EnchantmentPowerUtils.getEnchantmentPower(world, originBlockPos, BOOKSHELF_OFFSETS, EnchantmentPowerUtils.PathCheckMode.FULL);
 
                     this.random.setSeed(this.enchantmentSeed.get());
 
