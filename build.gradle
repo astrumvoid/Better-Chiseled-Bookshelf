@@ -9,19 +9,12 @@ architectury {
 }
 
 allprojects {
-    group = rootProject.maven_group
-    version = rootProject.mod_version
-}
-
-subprojects {
-    apply plugin: 'dev.architectury.loom'
+    apply plugin: "java"
     apply plugin: 'architectury-plugin'
     apply plugin: 'maven-publish'
 
-    base {
-        // Set up a suffixed format for the mod jar names, e.g. `example-fabric`.
-        archivesName = "$rootProject.archives_name-$project.name"
-    }
+    group = rootProject.maven_group
+    version = rootProject.mod_version
 
     repositories {
         // Add repositories to retrieve artifacts from in here.
@@ -29,11 +22,23 @@ subprojects {
         // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
         // See https://docs.gradle.org/current/userguide/declaring_repositories.html
         // for more information about repositories.
-    }
-
-    dependencies {
-        minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
-        mappings loom.officialMojangMappings()
+        maven {
+            url "https://www.cursemaven.com"
+            content {
+                includeGroup "curse.maven"
+            }
+        }
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = "Modrinth"
+                    url = "https://api.modrinth.com/maven"
+                }
+            }
+            filter {
+                includeGroup "maven.modrinth"
+            }
+        }
     }
 
     java {
@@ -48,6 +53,30 @@ subprojects {
 
     tasks.withType(JavaCompile).configureEach {
         it.options.release = 17
+    }
+}
+
+subprojects {
+    apply plugin: 'dev.architectury.loom'
+
+    base {
+        // Set up a suffixed format for the mod jar names, e.g. `example-fabric`.
+        archivesName = "$rootProject.archives_name-$project.name"
+    }
+
+    loom {
+        silentMojangMappingsLicense()
+    }
+
+    dependencies {
+        minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
+        mappings loom.officialMojangMappings()
+
+        modImplementation "curse.maven:jade-324717:$rootProject.jade_version"
+        modImplementation "curse.maven:easy-magic-456239:4658749"
+        modLocalRuntime "curse.maven:puzzles-lib-495476:5904751"
+        modLocalRuntime "curse.maven:forge-config-api-port-fabric-547434:5902421"
+
     }
 
     // Configure Maven publishing.

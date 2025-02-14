@@ -1,9 +1,9 @@
-package aboe.bcbs.fabric;
+package aboe.EnchantLib.fabric;
 
-import aboe.bcbs.Better_cbs;
+import aboe.EnchantLib.EnchantLib;
 import net.fabricmc.api.ModInitializer;
 
-public final class Better_cbsFabric implements ModInitializer {
+public final class EnchantLibFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         // This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -11,6 +11,6 @@ public final class Better_cbsFabric implements ModInitializer {
         // Proceed with mild caution.
 
         // Run our common setup.
-        Better_cbs.init();
+        EnchantLib.init();
     }
 }

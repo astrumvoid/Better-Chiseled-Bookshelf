@@ -4,30 +4,30 @@ loaderVersion = "[47,)"
 license = "MIT"
 
 [[mods]]
-modId = "better_cbs"
+modId = "enchantlib"
 version = "${version}"
-displayName = "Better Chiseled Bookshelf"
+displayName = "EnchantLib"
 authors = ""
 description = '''
 
 '''
 #logoFile = ""
 
-[[dependencies.better_cbs]]
+[[dependencies.enchantlib]]
 modId = "forge"
 mandatory = true
 versionRange = "[47,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.better_cbs]]
+[[dependencies.enchantlib]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.20.1,)"
 ordering = "NONE"
 side = "BOTH"
-
-[[dependencies.better_cbs]]
+enchantlib
+[[dependencies.enchantlib]]
 modId = "architectury"
 mandatory = true
 versionRange = "[9.2.14,)"

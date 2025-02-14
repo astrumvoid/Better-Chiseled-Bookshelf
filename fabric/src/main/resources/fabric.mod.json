@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "better_cbs",
+  "id": "enchantlib",
   "version": "${version}",
-  "name": "Better Chiseled Bookshelf",
+  "name": "EnchantLib",
   "description": "",
   "authors": [
     ""
@@ -11,18 +11,21 @@
     "homepage": ""
   },
   "license": "MIT",
-  "icon": "assets/better_cbs/icon.png",
+  "icon": "assets/EnchantLib/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "aboe.bcbs.fabric.Better_cbsFabric"
+      "aboe.EnchantLib.fabric.EnchantLibFabric"
     ],
     "client": [
-      "aboe.bcbs.fabric.client.Better_cbsFabricClient"
+      "aboe.EnchantLib.fabric.client.EnchantLibFabricClient"
+    ],
+    "jade": [
+      "aboe.EnchantLib.comp.JadeRegister"
     ]
   },
   "mixins": [
-    "better_cbs.mixins.json"
+    "EnchantLib.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.16.10",

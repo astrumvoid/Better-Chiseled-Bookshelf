@@ -1,4 +1,4 @@
-package aboe.bcbs.util;
+package aboe.EnchantLib.util;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -7,7 +7,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.Shapes;
 
 import java.util.List;
-
 
 public class EnchantmentPowerUtils {
 
@@ -22,7 +21,7 @@ public class EnchantmentPowerUtils {
      * <p>
      * A block is considered valid if:
      * <ul>
-     *   <li>It implements {@link EnchantmentPowerProvider} or has the "ENCHANTMENT_POWER_PROVIDER" tag.</li>
+     *   <li>It implements {@link IEnchantmentPowerProvider} or has the "ENCHANTMENT_POWER_PROVIDER" tag.</li>
      *   <li>The path to it is not blocked, depending on the selected {@code mode}.</li>
      * </ul>
      *
@@ -41,26 +40,25 @@ public class EnchantmentPowerUtils {
         BlockState blockToCheck = world.getBlockState(origin.offset(offset));
         switch (mode){
             case FULL -> {
-                return (blockToCheck.is(BlockTags.ENCHANTMENT_POWER_PROVIDER) || blockToCheck.getBlock() instanceof EnchantmentPowerProvider)
+                return (blockToCheck.is(BlockTags.ENCHANTMENT_POWER_PROVIDER) || blockToCheck.getBlock() instanceof IEnchantmentPowerProvider)
                         && isNotBlocked(world, origin, offset);
             }
             case TAG -> {
-                return (blockToCheck.is(BlockTags.ENCHANTMENT_POWER_PROVIDER) || blockToCheck.getBlock() instanceof EnchantmentPowerProvider)
+                return (blockToCheck.is(BlockTags.ENCHANTMENT_POWER_PROVIDER) || blockToCheck.getBlock() instanceof IEnchantmentPowerProvider)
                         && isPowerTransmitter(world, origin, offset);
             }
             default -> {
-                return blockToCheck.is(BlockTags.ENCHANTMENT_POWER_PROVIDER) || blockToCheck.getBlock() instanceof EnchantmentPowerProvider;
+                return blockToCheck.is(BlockTags.ENCHANTMENT_POWER_PROVIDER) || blockToCheck.getBlock() instanceof IEnchantmentPowerProvider;
             }
         }
     }
-
 
     /**
      * Retrieves the enchantment power value of the block at the specified offset.
      * <p>
      * The enchantment power is determined as follows:
      * <ul>
-     *   <li>If the block implements {@link EnchantmentPowerProvider}, its provided value is returned.</li>
+     *   <li>If the block implements {@link IEnchantmentPowerProvider}, its provided value is returned.</li>
      *   <li>If the block has the "ENCHANTMENT_POWER_PROVIDER" tag but does not implement the interface, returns {@code 1}.</li>
      *   <li>Otherwise, returns {@code 0}.</li>
      * </ul>
@@ -74,7 +72,7 @@ public class EnchantmentPowerUtils {
     public static float getEnchantmentPowerFromBlock(Level world, BlockPos origin, BlockPos offset, PathCheckMode mode) {
         if (isValidEnchantmentSource(world, origin, offset, mode)) {
             BlockState blockState = world.getBlockState(origin.offset(offset));
-            return (blockState.getBlock() instanceof EnchantmentPowerProvider power) ? power.getEnchantmentPower(blockState, world, origin.offset(offset)) : 1;
+            return (blockState.getBlock() instanceof IEnchantmentPowerProvider power) ? power.getEnchantmentPower(blockState, world, origin.offset(offset)) : 1;
         }
         else return 0;
     }
@@ -112,8 +110,7 @@ public class EnchantmentPowerUtils {
     }
 
     private static boolean isPowerTransmitter(Level world, BlockPos origin, BlockPos startPos) {
-
-        //Offsets the current enchantment table position, which means: Ignores the table, we don't care about it
+        //Offsets the current enchantment table position, which means: Ignores the table/origin, we don't care about it
         BlockPos target = origin.offset(why(startPos.getX()), startPos.getY(), why(startPos.getZ()));
 
         //Gets the position of the limit

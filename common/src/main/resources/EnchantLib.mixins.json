@@ -1,15 +1,18 @@
 {
   "required": true,
-  "package": "aboe.bcbs.mixin",
+  "package": "aboe.EnchantLib.mixin",
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
+  "plugin": "aboe.EnchantLib.mixinLoader",
   "client": [
   ],
   "mixins": [
     "ChiseledBookShelf",
     "EnchantmentTableBlockMixin",
-    "OverrideEnchantmentPower"
+    "OverrideEnchantmentPower",
+    "EasyMagicComp"
   ],
+  "priority": 100,
   "injectors": {
     "defaultRequire": 1
   }

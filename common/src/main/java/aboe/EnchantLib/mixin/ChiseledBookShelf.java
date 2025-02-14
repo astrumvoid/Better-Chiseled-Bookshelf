@@ -1,6 +1,6 @@
-package aboe.bcbs.mixin;
+package aboe.EnchantLib.mixin;
 
-import aboe.bcbs.util.EnchantmentPowerProvider;
+import aboe.EnchantLib.util.IEnchantmentPowerProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(ChiseledBookShelfBlock.class)
-public abstract class ChiseledBookShelf extends BaseEntityBlock implements EnchantmentPowerProvider {
+public abstract class ChiseledBookShelf extends BaseEntityBlock implements IEnchantmentPowerProvider {
 
     @Unique private static boolean better_cbs$multiplyNormal = true;
     @Unique private static byte better_cbs$multiplier = 2;
