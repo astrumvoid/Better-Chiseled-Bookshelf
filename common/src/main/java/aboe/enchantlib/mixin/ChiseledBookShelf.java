@@ -1,6 +1,6 @@
-package aboe.EnchantLib.mixin;
+package aboe.enchantlib.mixin;
 
-import aboe.EnchantLib.util.IEnchantmentPowerProvider;
+import aboe.enchantlib.util.IEnchantmentPowerProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -11,18 +11,11 @@ import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
+
+import static aboe.enchantlib.config.DefaultConfig.*;
 
 @Mixin(ChiseledBookShelfBlock.class)
 public abstract class ChiseledBookShelf extends BaseEntityBlock implements IEnchantmentPowerProvider {
-
-    @Unique private static boolean better_cbs$multiplyNormal = true;
-    @Unique private static byte better_cbs$multiplier = 2;
-    @Unique private static float better_cbs$normalBookPower = 0.1666666666666667f;
-    @Unique private static float better_cbs$enchantedPower = better_cbs$normalBookPower * 2;
-    @Unique private static float better_cbs$enchantedBookPower = (better_cbs$multiplyNormal)
-            ? better_cbs$normalBookPower * better_cbs$multiplier
-            : better_cbs$enchantedPower;
 
     protected ChiseledBookShelf(Properties properties) {
         super(properties);
@@ -32,8 +25,7 @@ public abstract class ChiseledBookShelf extends BaseEntityBlock implements IEnch
     public int getAnalogOutputSignal(BlockState blockState, Level world, BlockPos blockPos){
         if (world.isClientSide) return 0;
 
-        //If set to false, will go back to the default "Last Interacted Slot"
-        boolean ModifyRedstoneOutput = true;
+
         BlockEntity shelf = world.getBlockEntity(blockPos);
 
         //Checks if the slot has a book in it. If it has, adds a value according to the type of book.

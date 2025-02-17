@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "package": "aboe.enchantlib.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "plugin": "aboe.enchantlib.mixinLoader",
+  "client": [
+  ],
+  "mixins": [
+    "ChiseledBookShelf",
+    "EasyMagicComp",
+    "EnchantmentHelperMixin",
+    "EnchantmentPowerMixin",
+    "EnchantmentTableMixin",
+    "EnchPowerJade"
+  ],
+  "priority": 100,
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

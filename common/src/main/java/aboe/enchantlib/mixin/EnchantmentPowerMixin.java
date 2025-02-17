@@ -1,6 +1,6 @@
-package aboe.EnchantLib.mixin;
+package aboe.enchantlib.mixin;
 
-import aboe.EnchantLib.util.EnchantmentPowerUtils;
+import aboe.enchantlib.util.EnchantmentPowerUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
@@ -15,10 +15,10 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.List;
 
-import static aboe.EnchantLib.config.DefaultConfig.NEW_BOOKSHELF_OFFSETS;
+import static aboe.enchantlib.config.DefaultConfig.NEW_BOOKSHELF_OFFSETS;
 
 @Mixin(EnchantmentMenu.class)
-public abstract class OverrideEnchantmentPower extends AbstractContainerMenu {
+public abstract class EnchantmentPowerMixin extends AbstractContainerMenu {
 
     @Shadow @Final private Container enchantSlots;
     @Shadow @Final private ContainerLevelAccess access;
@@ -32,7 +32,7 @@ public abstract class OverrideEnchantmentPower extends AbstractContainerMenu {
 
     @Shadow protected abstract List<EnchantmentInstance> getEnchantmentList(ItemStack arg, int i, int j);
 
-    protected OverrideEnchantmentPower(@Nullable MenuType<?> menuType, int i) {
+    protected EnchantmentPowerMixin(@Nullable MenuType<?> menuType, int i) {
         super(menuType, i);
     }
 
@@ -42,7 +42,8 @@ public abstract class OverrideEnchantmentPower extends AbstractContainerMenu {
             ItemStack itemStack = container.getItem(0);
             if (!itemStack.isEmpty() && itemStack.isEnchantable()) {
                 this.access.execute((world, originBlockPos) -> {
-                    int enchantPower = (int)EnchantmentPowerUtils.getEnchantmentPower(world, originBlockPos, NEW_BOOKSHELF_OFFSETS, EnchantmentPowerUtils.PathCheckMode.FULL);
+                    int enchantPower = (int)EnchantmentPowerUtils.getEnchantmentPower(world, originBlockPos,
+                            NEW_BOOKSHELF_OFFSETS, EnchantmentPowerUtils.PathCheckMode.FULL);
 
                     this.random.setSeed(this.enchantmentSeed.get());
 

@@ -11,21 +11,18 @@
     "homepage": ""
   },
   "license": "MIT",
-  "icon": "assets/EnchantLib/icon.png",
+  "icon": "assets/enchantlib/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "aboe.EnchantLib.fabric.EnchantLibFabric"
+      "aboe.enchantlib.fabric.EnchantLibFabric"
     ],
     "client": [
-      "aboe.EnchantLib.fabric.client.EnchantLibFabricClient"
-    ],
-    "jade": [
-      "aboe.EnchantLib.comp.JadeRegister"
+      "aboe.enchantlib.fabric.client.EnchantLibFabricClient"
     ]
   },
   "mixins": [
-    "EnchantLib.mixins.json"
+    "enchantlib.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.16.10",

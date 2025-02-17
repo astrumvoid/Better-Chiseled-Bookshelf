@@ -4,7 +4,7 @@ plugins {
 
 loom {
     forge {
-        mixinConfig "better_cbs.mixins.json"
+        mixinConfig "enchantlib.mixins.json"
     }
 }
 

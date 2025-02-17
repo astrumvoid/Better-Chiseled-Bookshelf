@@ -1,6 +1,6 @@
-package aboe.EnchantLib.mixin;
+package aboe.enchantlib.mixin;
 
-import aboe.EnchantLib.util.EnchantmentPowerUtils;
+import aboe.enchantlib.util.EnchantmentPowerUtils;
 import fuzs.easymagic.world.inventory.ModEnchantmentMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static aboe.EnchantLib.config.DefaultConfig.NEW_BOOKSHELF_OFFSETS;
-import static aboe.EnchantLib.util.EnchantmentPowerUtils.getEnchantmentPower;
+import static aboe.enchantlib.config.DefaultConfig.NEW_BOOKSHELF_OFFSETS;
+import static aboe.enchantlib.util.EnchantmentPowerUtils.getEnchantmentPower;
 
 @Mixin(ModEnchantmentMenu.class)
 public class EasyMagicComp {

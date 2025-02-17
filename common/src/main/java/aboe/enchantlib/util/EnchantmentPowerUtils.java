@@ -1,4 +1,4 @@
-package aboe.EnchantLib.util;
+package aboe.enchantlib.util;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -65,11 +65,11 @@ public class EnchantmentPowerUtils {
      *
      * @param world  The world (level) where the block is located.
      * @param origin The position of the reference block (e.g., an enchantment table).
-     * @param offset The relative offset from {@code origin} where the block is located.
+     * @param offset The relative offset from {@code origin} where the block is located. (use a full 0 position if you want to check the current block)
      * @param mode   The path-checking mode (see {@link #isValidEnchantmentSource} for details).
      * @return The enchantment power value of the block.
      */
-    public static float getEnchantmentPowerFromBlock(Level world, BlockPos origin, BlockPos offset, PathCheckMode mode) {
+    public static float getValidEnchantmentPowerFromBlock(Level world, BlockPos origin, BlockPos offset, PathCheckMode mode) {
         if (isValidEnchantmentSource(world, origin, offset, mode)) {
             BlockState blockState = world.getBlockState(origin.offset(offset));
             return (blockState.getBlock() instanceof IEnchantmentPowerProvider power) ? power.getEnchantmentPower(blockState, world, origin.offset(offset)) : 1;
@@ -81,7 +81,7 @@ public class EnchantmentPowerUtils {
      * Calculates the total enchantment power from the blocks around the origin position.
      * <p>
      * This method iterates through a list of block positions, accumulating their enchantment power
-     * based on the {@link #getEnchantmentPowerFromBlock(Level, BlockPos, BlockPos, PathCheckMode)} method.
+     * based on the {@link #getValidEnchantmentPowerFromBlock(Level, BlockPos, BlockPos, PathCheckMode)} method.
      *
      * @param world           The world (level) where the blocks are located.
      * @param origin          The position of the reference block (e.g., an enchantment table).
@@ -94,7 +94,7 @@ public class EnchantmentPowerUtils {
 
         //Checks Each Block Within the Offset List - Might be expensive if you have too many blocks to check for.
         for (BlockPos offset : blockOffsetList) {
-            power += getEnchantmentPowerFromBlock(world, origin, offset, mode);
+            power += getValidEnchantmentPowerFromBlock(world, origin, offset, mode);
         }
 
         return power;

@@ -1,4 +1,4 @@
-package aboe.EnchantLib.fabric.client;
+package aboe.enchantlib.fabric.client;
 
 import net.fabricmc.api.ClientModInitializer;
 

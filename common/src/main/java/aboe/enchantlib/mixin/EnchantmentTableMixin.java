@@ -1,6 +1,6 @@
-package aboe.EnchantLib.mixin;
+package aboe.enchantlib.mixin;
 
-import aboe.EnchantLib.util.EnchantmentPowerUtils;
+import aboe.enchantlib.util.EnchantmentPowerUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
@@ -14,14 +14,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static aboe.EnchantLib.config.DefaultConfig.NEW_BOOKSHELF_OFFSETS;
-import static aboe.EnchantLib.config.DefaultConfig.particleChance;
-import static aboe.EnchantLib.util.EnchantmentPowerUtils.isValidEnchantmentSource;
+import static aboe.enchantlib.config.DefaultConfig.NEW_BOOKSHELF_OFFSETS;
+import static aboe.enchantlib.config.DefaultConfig.particleChance;
+import static aboe.enchantlib.util.EnchantmentPowerUtils.isValidEnchantmentSource;
 
 @Mixin(EnchantmentTableBlock.class)
-public abstract class EnchantmentTableBlockMixin extends BaseEntityBlock {
+public abstract class EnchantmentTableMixin extends BaseEntityBlock {
 
-    protected EnchantmentTableBlockMixin(Properties properties) {
+    protected EnchantmentTableMixin(Properties properties) {
         super(properties);
     }
 

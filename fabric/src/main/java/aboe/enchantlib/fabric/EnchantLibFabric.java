@@ -1,6 +1,6 @@
-package aboe.EnchantLib.fabric;
+package aboe.enchantlib.fabric;
 
-import aboe.EnchantLib.EnchantLib;
+import aboe.enchantlib.EnchantLib;
 import net.fabricmc.api.ModInitializer;
 
 public final class EnchantLibFabric implements ModInitializer {
