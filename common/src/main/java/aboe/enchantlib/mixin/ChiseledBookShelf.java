@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
+import snownee.jade.api.platform.CustomEnchantPower;
 
 import static aboe.enchantlib.config.DefaultConfig.*;
 
@@ -24,7 +25,6 @@ public abstract class ChiseledBookShelf extends BaseEntityBlock implements IEnch
     @Override
     public int getAnalogOutputSignal(BlockState blockState, Level world, BlockPos blockPos){
         if (world.isClientSide) return 0;
-
 
         BlockEntity shelf = world.getBlockEntity(blockPos);
 

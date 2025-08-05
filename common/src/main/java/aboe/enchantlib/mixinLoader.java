@@ -2,30 +2,25 @@ package aboe.enchantlib;
 
 import dev.architectury.platform.Platform;
 import org.objectweb.asm.tree.ClassNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import java.util.List;
 import java.util.Set;
 
-import static aboe.enchantlib.EnchantLib.MOD_ID;
-
 public class mixinLoader implements IMixinConfigPlugin
 {
     @Override
     public boolean shouldApplyMixin(String s, String mixinClassName) {
-        if ("aboe.enchantlib.mixin.EasyMagicComp".equals(mixinClassName))
-            return Platform.isModLoaded("easymagic");
-        if ("aboe.enchantlib.mixin.EnchPowerJade".equals(mixinClassName))
-            return Platform.isModLoaded("jade");
+        if (Platform.isFabric()){
+            if ("aboe.enchantlib.mixin.EasyMagicComp".equals(mixinClassName))
+                return Platform.isModLoaded("easymagic");
+       }
         return true;
     }
 
     @Override
-    public void onLoad(String s) {
-
+    public void onLoad(String mixinClassName) {
     }
 
     @Override
@@ -45,7 +40,6 @@ public class mixinLoader implements IMixinConfigPlugin
 
     @Override
     public void preApply(String s, ClassNode classNode, String s1, IMixinInfo iMixinInfo) {
-
     }
 
     @Override

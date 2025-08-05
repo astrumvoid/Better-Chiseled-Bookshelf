@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static aboe.enchantlib.config.DefaultConfig.NEW_BOOKSHELF_OFFSETS;
 import static aboe.enchantlib.config.DefaultConfig.particleChance;
-import static aboe.enchantlib.util.EnchantmentPowerUtils.isValidEnchantmentSource;
+import static aboe.enchantlib.util.EnchantmentPowerUtils.isValidPowerProvider;
 
 @Mixin(EnchantmentTableBlock.class)
 public abstract class EnchantmentTableMixin extends BaseEntityBlock {
@@ -27,18 +27,21 @@ public abstract class EnchantmentTableMixin extends BaseEntityBlock {
 
     @Inject(method = "isValidBookShelf", at = @At(value = "HEAD"), cancellable = true)
     private static void checkValidEnchantProvider(Level world, BlockPos blockPos, BlockPos offset, CallbackInfoReturnable<Boolean> cir){
-        cir.setReturnValue(isValidEnchantmentSource(world, blockPos, offset, EnchantmentPowerUtils.PathCheckMode.FULL));
+        cir.setReturnValue(isValidPowerProvider(world, blockPos, offset, EnchantmentPowerUtils.PathCheck.FULL));
     }
 
+    //The animation is actually the same-
     @Inject(method = "animateTick", at = @At(value = "HEAD"))
     public void betterAnimation(BlockState blockState, Level world, BlockPos blockPos, RandomSource randomSource, CallbackInfo ci) {
         super.animateTick(blockState, world, blockPos, randomSource);
         for (BlockPos providerPos : NEW_BOOKSHELF_OFFSETS) {
-            if (randomSource.nextInt(particleChance) == 0 && isValidEnchantmentSource(world, blockPos, providerPos, EnchantmentPowerUtils.PathCheckMode.FULL)) {
+            if (randomSource.nextInt(particleChance) == 0 && isValidPowerProvider(world, blockPos, providerPos, EnchantmentPowerUtils.PathCheck.FULL)) {
                 world.addParticle(
                         ParticleTypes.ENCHANT,
-                        (double) blockPos.getX() + 0.5, (double) blockPos.getY() + 2.0, (double) blockPos.getZ() + 0.5,
-                        (double) ((float) providerPos.getX() + randomSource.nextFloat()) - 0.5, (double) ((float) providerPos.getY() - randomSource.nextFloat() - 1.0F), (double) ((float) providerPos.getZ() + randomSource.nextFloat()) - 0.5);
+                        blockPos.getX() + 0.5, blockPos.getY() + 2.0, blockPos.getZ() + 0.5,
+                        (providerPos.getX() + randomSource.nextFloat()) - 0.5,
+                        (providerPos.getY() - randomSource.nextFloat()) - 1.0F,
+                        (providerPos.getZ() + randomSource.nextFloat()) - 0.5);
             }
         }
     }

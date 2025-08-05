@@ -11,13 +11,15 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static net.minecraft.world.item.enchantment.EnchantmentHelper.filterCompatibleEnchantments;
 
 public class EnchantGen {
 
-    //slightly modified version of the original enchantment table code.
+    //Slightly modified version of the original enchantment table code. I Was just trying to understand how it works, so I can make a custom one later on
     public static List<EnchantmentInstance> selectEnchantment(RandomSource randomSource, int powerLevel, ItemStack itemStack, Boolean allowTreasureEnchantment) {
         List<EnchantmentInstance> selectedEnchantments = new ArrayList<>();
 

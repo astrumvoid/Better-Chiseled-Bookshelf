@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import java.util.List;
 
 import static aboe.enchantlib.config.DefaultConfig.NEW_BOOKSHELF_OFFSETS;
+import static aboe.enchantlib.util.EnchantmentPowerUtils.getTotalEnchantmentPower;
 
 @Mixin(EnchantmentMenu.class)
 public abstract class EnchantmentPowerMixin extends AbstractContainerMenu {
@@ -36,14 +37,15 @@ public abstract class EnchantmentPowerMixin extends AbstractContainerMenu {
         super(menuType, i);
     }
 
+    //Yes, it's a ctrl+c ctrl+v, since I don't know hot to change just the value of the variable from outside...
     @Override
     public void slotsChanged(Container container) {
         if (container == this.enchantSlots) {
             ItemStack itemStack = container.getItem(0);
             if (!itemStack.isEmpty() && itemStack.isEnchantable()) {
                 this.access.execute((world, originBlockPos) -> {
-                    int enchantPower = (int)EnchantmentPowerUtils.getEnchantmentPower(world, originBlockPos,
-                            NEW_BOOKSHELF_OFFSETS, EnchantmentPowerUtils.PathCheckMode.FULL);
+                    int enchantPower = (int)getTotalEnchantmentPower(world, originBlockPos,
+                            NEW_BOOKSHELF_OFFSETS, EnchantmentPowerUtils.PathCheck.FULL);
 
                     this.random.setSeed(this.enchantmentSeed.get());
 
@@ -77,6 +79,5 @@ public abstract class EnchantmentPowerMixin extends AbstractContainerMenu {
                 }
             }
         }
-
     }
 }
