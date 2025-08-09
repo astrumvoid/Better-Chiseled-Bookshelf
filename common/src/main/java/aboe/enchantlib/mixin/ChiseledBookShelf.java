@@ -11,9 +11,8 @@ import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
-import snownee.jade.api.platform.CustomEnchantPower;
 
-import static aboe.enchantlib.config.DefaultConfig.*;
+import static aboe.enchantlib.config.Configs.*;
 
 @Mixin(ChiseledBookShelfBlock.class)
 public abstract class ChiseledBookShelf extends BaseEntityBlock implements IEnchantmentPowerProvider {
@@ -47,13 +46,14 @@ public abstract class ChiseledBookShelf extends BaseEntityBlock implements IEnch
     //The float is converted into an int in the end, but it's useful to make whole numbers with more shelf that provides less or more power
     @Override
     public float getEnchantmentPower(BlockState state, Level world, BlockPos pos) {
-        float power = 0;
+        float enchantedPower = 0;
+        float eEnchantedBookPower = (multiplyNormalBook) ? normalBookPower * bookMultiplier : enchantedBookPower;
 
         if (world.getBlockEntity(pos) instanceof ChiseledBookShelfBlockEntity shelfBlock) {
             for (byte slot = 0; slot < 6; slot++)
                 if (!shelfBlock.getItem(slot).isEmpty())
-                    power += (shelfBlock.getItem(slot).is(Items.ENCHANTED_BOOK)) ? better_cbs$enchantedBookPower : better_cbs$normalBookPower;
+                    enchantedPower += (shelfBlock.getItem(slot).is(Items.ENCHANTED_BOOK)) ? eEnchantedBookPower : normalBookPower;
         }
-        return power;
+        return enchantedPower;
     }
 }

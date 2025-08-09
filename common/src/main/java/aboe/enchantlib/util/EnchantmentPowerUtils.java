@@ -1,14 +1,15 @@
 package aboe.enchantlib.util;
 
-import aboe.enchantlib.comp.ForgeComp;
-import dev.architectury.platform.Platform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EnchantmentTableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.Shapes;
 
 import java.util.List;
+
+import static aboe.enchantlib.config.Configs.biggerTable;
 
 public class EnchantmentPowerUtils {
 
@@ -16,6 +17,13 @@ public class EnchantmentPowerUtils {
         NONE, //Ignores everything in the way
         TAG,  //Ignores blocks that have the "ENCHANTMENT_POWER_TRANSMITTER" tag
         FULL  //Ignores non-full blocks
+    }
+
+    public static List<BlockPos> GetBookShelfOffsets(){
+        if (biggerTable)
+            return BlockPos.betweenClosedStream(-4, 0, -4, 4, 1, 4).map(BlockPos::immutable).toList();
+        else
+            return EnchantmentTableBlock.BOOKSHELF_OFFSETS;
     }
 
     /**
@@ -36,8 +44,6 @@ public class EnchantmentPowerUtils {
     public static float getCurrentBlockPower(Level world, BlockPos blockPos, BlockState blockState){
         if (blockState.getBlock() instanceof IEnchantmentPowerProvider powerProvider)
             return powerProvider.getEnchantmentPower(blockState, world, blockPos);
-        else if (Platform.isForge() && blockState.getBlock() instanceof ForgeComp power)
-            return power.getEnchantPowerBonus(blockState, world, blockPos);
         else if (blockState.is(BlockTags.ENCHANTMENT_POWER_PROVIDER))
              return 1;
         else return 0;

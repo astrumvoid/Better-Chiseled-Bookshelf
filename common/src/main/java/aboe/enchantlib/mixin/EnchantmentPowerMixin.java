@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.List;
 
-import static aboe.enchantlib.config.DefaultConfig.NEW_BOOKSHELF_OFFSETS;
+import static aboe.enchantlib.util.EnchantmentPowerUtils.GetBookShelfOffsets;
 import static aboe.enchantlib.util.EnchantmentPowerUtils.getTotalEnchantmentPower;
 
 @Mixin(EnchantmentMenu.class)
@@ -45,7 +45,7 @@ public abstract class EnchantmentPowerMixin extends AbstractContainerMenu {
             if (!itemStack.isEmpty() && itemStack.isEnchantable()) {
                 this.access.execute((world, originBlockPos) -> {
                     int enchantPower = (int)getTotalEnchantmentPower(world, originBlockPos,
-                            NEW_BOOKSHELF_OFFSETS, EnchantmentPowerUtils.PathCheck.FULL);
+                            GetBookShelfOffsets(), EnchantmentPowerUtils.PathCheck.FULL);
 
                     this.random.setSeed(this.enchantmentSeed.get());
 

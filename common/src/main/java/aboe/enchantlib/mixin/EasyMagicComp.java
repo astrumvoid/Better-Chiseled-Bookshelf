@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static aboe.enchantlib.config.DefaultConfig.NEW_BOOKSHELF_OFFSETS;
+import static aboe.enchantlib.util.EnchantmentPowerUtils.GetBookShelfOffsets;
 import static aboe.enchantlib.util.EnchantmentPowerUtils.getTotalEnchantmentPower;
 
 @Mixin(ModEnchantmentMenu.class)
@@ -17,6 +17,6 @@ public class EasyMagicComp {
 
     @Inject(method = "getEnchantingPower", at = @At("HEAD"), cancellable = true)
     private void getEnchantingPower(Level world, BlockPos pos, CallbackInfoReturnable<Integer> cir){
-        cir.setReturnValue((int) getTotalEnchantmentPower(world, pos, NEW_BOOKSHELF_OFFSETS, EnchantmentPowerUtils.PathCheck.FULL));
+        cir.setReturnValue((int) getTotalEnchantmentPower(world, pos, GetBookShelfOffsets(), EnchantmentPowerUtils.PathCheck.FULL));
     }
 }

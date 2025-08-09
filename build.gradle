@@ -74,6 +74,7 @@ subprojects {
 
         modImplementation "curse.maven:jade-324717:$rootProject.jade_version"
         modImplementation "curse.maven:easy-magic-456239:4658749"
+        modImplementation ("maven.modrinth:midnightlib:${rootProject.midnightlib_version}")
         modLocalRuntime "curse.maven:puzzles-lib-495476:5904751"
         modLocalRuntime "curse.maven:forge-config-api-port-fabric-547434:5902421"
 

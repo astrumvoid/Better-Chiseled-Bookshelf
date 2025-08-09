@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static aboe.enchantlib.config.DefaultConfig.NEW_BOOKSHELF_OFFSETS;
-import static aboe.enchantlib.config.DefaultConfig.particleChance;
+import static aboe.enchantlib.config.Configs.particleChance;
+import static aboe.enchantlib.util.EnchantmentPowerUtils.GetBookShelfOffsets;
 import static aboe.enchantlib.util.EnchantmentPowerUtils.isValidPowerProvider;
 
 @Mixin(EnchantmentTableBlock.class)
@@ -34,7 +34,7 @@ public abstract class EnchantmentTableMixin extends BaseEntityBlock {
     @Inject(method = "animateTick", at = @At(value = "HEAD"))
     public void betterAnimation(BlockState blockState, Level world, BlockPos blockPos, RandomSource randomSource, CallbackInfo ci) {
         super.animateTick(blockState, world, blockPos, randomSource);
-        for (BlockPos providerPos : NEW_BOOKSHELF_OFFSETS) {
+        for (BlockPos providerPos : GetBookShelfOffsets()) {
             if (randomSource.nextInt(particleChance) == 0 && isValidPowerProvider(world, blockPos, providerPos, EnchantmentPowerUtils.PathCheck.FULL)) {
                 world.addParticle(
                         ParticleTypes.ENCHANT,
