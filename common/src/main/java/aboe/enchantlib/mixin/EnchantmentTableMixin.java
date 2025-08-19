@@ -14,6 +14,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.nio.file.Path;
+
 import static aboe.enchantlib.config.Configs.particleChance;
 import static aboe.enchantlib.util.EnchantmentPowerUtils.GetBookShelfOffsets;
 import static aboe.enchantlib.util.EnchantmentPowerUtils.isValidPowerProvider;

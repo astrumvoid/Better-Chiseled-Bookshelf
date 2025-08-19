@@ -72,7 +72,7 @@ subprojects {
         minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
         mappings loom.officialMojangMappings()
 
-        modImplementation "curse.maven:jade-324717:$rootProject.jade_version"
+        modImplementation "maven.modrinth:jade:$rootProject.jade_version"
         modImplementation "curse.maven:easy-magic-456239:4658749"
         modImplementation ("maven.modrinth:midnightlib:${rootProject.midnightlib_version}")
         modLocalRuntime "curse.maven:puzzles-lib-495476:5904751"

@@ -12,7 +12,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
     modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
 
-    modImplementation "curse.maven:jade-324717:$rootProject.jade_version"
     modImplementation "curse.maven:easy-magic-456239:4658749"
+    modImplementation "maven.modrinth:jade:$rootProject.jade_version"
     modImplementation include ("maven.modrinth:midnightlib:${rootProject.midnightlib_version}")
 }

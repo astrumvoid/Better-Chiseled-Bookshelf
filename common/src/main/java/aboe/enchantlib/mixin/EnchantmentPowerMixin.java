@@ -1,5 +1,6 @@
 package aboe.enchantlib.mixin;
 
+import aboe.enchantlib.config.Configs;
 import aboe.enchantlib.util.EnchantmentPowerUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;

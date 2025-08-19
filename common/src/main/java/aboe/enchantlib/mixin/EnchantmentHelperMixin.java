@@ -16,7 +16,7 @@ import static aboe.enchantlib.util.EnchantGen.selectEnchantment;
 
 @Mixin(EnchantmentHelper.class)
 public class EnchantmentHelperMixin {
-
+//This is just a test, it's useless.
     @Inject(method = "getAvailableEnchantmentResults", at = @At("HEAD"), cancellable = true)
     private static void injectList(int powerLevel, ItemStack itemStack, boolean allowTreasure, CallbackInfoReturnable<List<EnchantmentInstance>> cir){
         cir.setReturnValue(getValidEnchantments(powerLevel, itemStack, allowTreasure));

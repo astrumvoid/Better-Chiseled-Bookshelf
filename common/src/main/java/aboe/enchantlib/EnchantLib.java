@@ -10,7 +10,7 @@ public final class EnchantLib {
     public static final Logger logger = LoggerFactory.getLogger(MOD_ID);
 
     public static void init() {
-        MidnightConfig.init(MOD_ID, Configs.class);
         logger.info("Upgrading Chiseled Bookshelves...");
+        MidnightConfig.init(MOD_ID, Configs.class);
     }
 }

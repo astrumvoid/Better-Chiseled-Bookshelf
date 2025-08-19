@@ -19,6 +19,9 @@
     ],
     "client": [
       "aboe.enchantlib.fabric.client.EnchantLibFabricClient"
+    ],
+    "jade": [
+      "aboe.enchantlib.comp.EnchProviderPlugin"
     ]
   },
   "mixins": [

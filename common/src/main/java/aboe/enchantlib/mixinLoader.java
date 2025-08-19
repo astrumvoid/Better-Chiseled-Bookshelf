@@ -15,8 +15,6 @@ public class mixinLoader implements IMixinConfigPlugin
         if (Platform.isFabric()){
             if ("aboe.enchantlib.mixin.EasyMagicComp".equals(mixinClassName))
                 return Platform.isModLoaded("easymagic");
-            if ("aboe.enchantlib.mixin.EnchPowerJade".equals(mixinClassName))
-                return Platform.isModLoaded("jade");
        }
         return true;
     }

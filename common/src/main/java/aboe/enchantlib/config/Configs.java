@@ -1,5 +1,6 @@
 package aboe.enchantlib.config;
 
+import aboe.enchantlib.util.EnchantmentPowerUtils;
 import eu.midnightdust.lib.config.MidnightConfig;
 
 public class Configs extends MidnightConfig {
@@ -9,10 +10,9 @@ public class Configs extends MidnightConfig {
     //I don't recommend you getting any of the values from here.
 
     //Size to look the bigger bookshelf offset
-    @Entry(category = OTHERS) public static boolean biggerTable = false; //Decides if the bookshelves should be further away
+    @Entry(category = OTHERS) public static boolean biggerTable = false;
 
     //If set to false, it will go back to the default "Last Interacted Slot", instead of the output being in pair with the items in the shelf.
-
     @Entry(category = OTHERS) public static boolean ModifyRedstoneOutput = false;
 
     //The smaller the number, the more particles you will have, this can not be 0. Default is 16.

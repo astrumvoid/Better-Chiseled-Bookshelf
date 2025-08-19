@@ -9,10 +9,8 @@
   "mixins": [
     "ChiseledBookShelf",
     "EasyMagicComp",
-    "EnchantmentHelperMixin",
     "EnchantmentPowerMixin",
-    "EnchantmentTableMixin",
-    "EnchPowerJade"
+    "EnchantmentTableMixin"
   ],
   "priority": 100,
   "injectors": {

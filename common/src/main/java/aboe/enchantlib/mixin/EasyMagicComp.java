@@ -1,5 +1,6 @@
 package aboe.enchantlib.mixin;
 
+import aboe.enchantlib.config.Configs;
 import aboe.enchantlib.util.EnchantmentPowerUtils;
 import fuzs.easymagic.world.inventory.ModEnchantmentMenu;
 import net.minecraft.core.BlockPos;
