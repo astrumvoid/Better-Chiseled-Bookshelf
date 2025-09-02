@@ -29,7 +29,7 @@ public enum EntityBlockEnchPowerProvider implements IBlockComponentProvider, ISe
     @Override
     public void appendServerData(NbtCompound serverData, BlockAccessor blockAccessor) {
         if (blockAccessor.getBlock() instanceof IEnchantmentPowerProvider powerProvider) {
-            if (Platform.isModLoaded("easymagic") && blockAccessor.getBlockState().isOf(Blocks.CHISELED_BOOKSHELF)) return;
+            //if (Platform.isModLoaded("easymagic") && blockAccessor.getBlockState().isOf(Blocks.CHISELED_BOOKSHELF)) return;
 
             float power = powerProvider.getEnchantmentPower(blockAccessor.getLevel(), blockAccessor.getPosition(), blockAccessor.getBlockState());
 

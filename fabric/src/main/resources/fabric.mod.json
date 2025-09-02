@@ -10,7 +10,7 @@
   "contact": {
     "homepage": ""
   },
-  "license": "MPL-2.0",
+  "license": "MIT",
   "icon": "assets/enchantlib/icon.png",
   "environment": "*",
   "entrypoints": {
@@ -29,9 +29,10 @@
   ],
   "depends": {
     "fabricloader": ">=0.17.2",
-    "minecraft": "~1.21",
+    "minecraft": "1.21.4",
     "java": ">=21",
-    "architectury": ">=13.0.8",
+    "architectury": ">=15.0.3",
+    "midnightlib": ">=1.7.3",
     "fabric-api": "*"
   },
   "suggests": {

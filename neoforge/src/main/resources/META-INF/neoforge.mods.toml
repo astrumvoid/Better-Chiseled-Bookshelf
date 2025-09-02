@@ -1,7 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[2,)"
 #issueTrackerURL = ""
-license = "Mozilla Public License 2.0"
+license = "MIT"
 
 [[mods]]
 modId = "enchantlib"
@@ -23,21 +23,21 @@ side = "BOTH"
 [[dependencies.enchantlib]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21,)"
+versionRange = "[1.21.4,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.enchantlib]]
 modId = "architectury"
 type = "required"
-versionRange = "[13.0.8,)"
+versionRange = "[15.0.3,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.enchantlib]]
 modId = "midnightlib"
 type = "required"
-versionRange = "[1.6.9,)"
+versionRange = "[1.7.3,)"
 ordering = "AFTER"
 side = "BOTH"
 

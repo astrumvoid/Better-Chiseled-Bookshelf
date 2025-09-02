@@ -48,7 +48,7 @@ public abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
             if (!itemStack.isEmpty() && itemStack.isEnchantable()) {
                 this.context.run((world, pos) -> {
 
-                    IndexedIterable<RegistryEntry<Enchantment>> indexedIterable = world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getIndexedEntries();
+                    IndexedIterable<RegistryEntry<Enchantment>> indexedIterable = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getIndexedEntries();
 
                     if (XZSize > 15) EnchantLib.logger.warn("Enchantment Table is set to a size of: " + XZSize + ". Performance might be hurt!" );
                     int powerLevel = (int) EnchantmentPowerUtil.getPowerFromValidProviders(world, pos, ConfigGetter.getTableSize(), Configs.obType);
