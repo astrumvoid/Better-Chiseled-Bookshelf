@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "perfectvoid.tyron.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "ChiseledBookShelf",
+    "EasyMagicCompMixin",
+    "EnchantmentScreenHandlerMixin",
+    "EnchantmentTableMixin"
+  ],
+  "priority": 100,
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
