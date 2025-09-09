@@ -30,7 +30,7 @@
   "enchantlib.midnightconfig.YSize.tooltip": "Determines how below/high up the table should search for shelves",
 
 
-  "enchantlib.midnightconfig.yGoesDown": "Should get Shelves Below",
+  "enchantlib.midnightconfig.yGoesDown": "Should Get Shelves Below",
   "enchantlib.midnightconfig.yGoesDown.tooltip": "Determines if the table should get shelves below its Y coordinate",
 
   "enchantlib.midnightconfig.normalBookPower": "Normal Book Power",

@@ -24,7 +24,7 @@ import java.util.List;
 
 import static perfectvoid.tyron.config.Configs.XZSize;
 
-@Mixin(EnchantmentScreenHandler.class)
+@Mixin(value = EnchantmentScreenHandler.class, priority = 100)
 public abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
     @Shadow @Final private Inventory inventory;
     @Shadow @Final private ScreenHandlerContext context;
@@ -50,7 +50,8 @@ public abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
 
                     IndexedIterable<RegistryEntry<Enchantment>> indexedIterable = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getIndexedEntries();
 
-                    if (XZSize > 15) EnchantLib.logger.warn("Enchantment Table is set to a size of: " + XZSize + ". Performance might be hurt!" );
+                    if (XZSize > 15)
+                        EnchantLib.logger.warn("Enchantment Table is set to a size of: " + XZSize + ". Performance might be hurt!");
                     int powerLevel = (int) EnchantmentPowerUtil.getPowerFromValidProviders(world, pos, ConfigGetter.getTableSize(), Configs.obType);
 
                     this.random.setSeed((this.seed.get()));
@@ -69,8 +70,8 @@ public abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
                             List<EnchantmentLevelEntry> list = this.generateEnchantments(world.getRegistryManager(), itemStack, j, this.enchantmentPower[j]);
                             if (list != null && !list.isEmpty()) {
                                 EnchantmentLevelEntry enchantmentLevelEntry = list.get(this.random.nextInt(list.size()));
-                                this.enchantmentId[j] = indexedIterable.getRawId(enchantmentLevelEntry.enchantment);
-                                this.enchantmentLevel[j] = enchantmentLevelEntry.level;
+                                this.enchantmentId[j] = indexedIterable.getRawId(enchantmentLevelEntry.enchantment());
+                                this.enchantmentLevel[j] = enchantmentLevelEntry.level();
                             }
                         }
                     }

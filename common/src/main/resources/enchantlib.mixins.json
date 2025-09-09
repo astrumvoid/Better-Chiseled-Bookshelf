@@ -3,6 +3,7 @@
   "package": "perfectvoid.tyron.mixins",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
+  "plugin": "perfectvoid.tyron.mixinLoader",
   "client": [
   ],
   "mixins": [

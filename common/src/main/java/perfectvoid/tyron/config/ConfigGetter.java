@@ -3,7 +3,6 @@ package perfectvoid.tyron.config;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
-import perfectvoid.tyron.EnchantLib;
 
 import java.util.List;
 

@@ -43,7 +43,7 @@ public abstract class EnchantmentTableMixin extends BlockWithEntity {
 
         for (BlockPos providerOffSetPos : getValidPowerProvidersInArea(world, pos, ConfigGetter.getTableSize(), obType)) {
             if (random.nextInt(particleChance) == 0)
-                world.addParticle(
+                world.addParticleClient(
                         ParticleTypes.ENCHANT,
                         pos.getX() + 0.5f, pos.getY() + 2f, pos.getZ() + 0.5,
                         (providerOffSetPos.getX() + random.nextFloat()) - 0.5f,

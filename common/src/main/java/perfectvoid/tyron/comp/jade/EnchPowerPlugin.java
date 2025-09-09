@@ -15,7 +15,7 @@ public class EnchPowerPlugin implements IWailaPlugin {
     }
 
     public void registerClient(IWailaClientRegistration registration) {
-        registration.registerBlockComponent(EntityBlockEnchPowerProvider.INSTANCE, BlockWithEntity.class);
+        registration.registerBlockComponent(EntityBlockEnchPowerProvider.Client.INSTANCE, BlockWithEntity.class);
         registration.registerBlockComponent(EnchPowerComponentProvider.INSTANCE, Block.class);
     }
 }
