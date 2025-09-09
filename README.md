@@ -2,21 +2,30 @@ A simple mod that makes the chiseled bookshelves better by making them give ench
 
 ![nothing to add](https://cdn.modrinth.com/data/cached_images/b3a5399208259320870e88e7525e070a55b23c1f.png)
 
-**Compatible with Easy Magic and Jade.**
+**Compatible with Easy Magic and Jade. (and Enchantment disabler if 1.21.5+)**
 
 In case of bugs, report to me on **voidtyron** in discord
 
 Can technically be used as a library, but I'm working on giving it more uses.
 
-# Available Settings:
-- **Bigger Table**: If set to **true**, will make so the shelves can be placed up to a **2 blocks away** from the table, instead of the **default 1**. 
-- **Modify Redstone Output**: If set to **true**, the comparator redstone output will be changed from **“Last Interacted Slot”** to the amount of books in the shelf (1 of power per book, 2 per enchanted book) 
-- **Particle Chance**: Allows you to change how frequent the enchantment table will create particles, the lower = more particles will spawn. **Defaults to 16**. 
-- **Normal Book Power**: Allows you to change how much power a single book is worth. Defaults to ~0.16 (a lot of six), since this multiplied by 6 is 1. 
-- **Enchanted Power**: Allows you to change how much power a single enchanted book is worth. Defaults to ~0.33 (a lot of three), since this multiplied by six is 2.
-- **Multiply Normal Book**: If set to **true**, this will make so the enchanted book power is **ALWAYS** the normal book power times the set multiplier. **Defaults to true**.
-- **Multiplier**: Sets how many much more power the enchanted book gives. Only works if **Multiply Normal Book* is set to true. **Defaults to 2**.
-### For Forge Users
+## Available Settings:
+### Table Configs: 
+- **Particle Spawn Chance (affects client only):** How frequent the particles should spawn, with 1 being pretty much always. 
+- **Shelf Obstruction type:** Defines what kind of blocks will block the shelf power. Solid means only full blocks, default is Minecraft default and none means nothing will block the power.
+- **Maximum Shelf Distance:** Defines how much to each side the table should search for shelves. Ex: 5 means it will search 5 block to each side of the table (Values higher than 10 might cause lag)
+- **Maximum Shelf Hight:** Defines how much up/down the table should search for shelves. Again, values bigger than 10 might cause lag.
+- **Should Get Shelves Below:** Makes so she "Maximum Shelf Hight" also applies for blocks below the enchantment table. Ex: Will search 5 block up and 5 block down.
+### Redstone Configs:
+- **Modify Chiseled Bookshelf Redstone Output:** If set to true, the comparator output will be equal to the book in the shelf instead of the last interacted slot. 
+- **Normal Book Redstone Power:** Defines how much redstone power the book should give
+- **Enchanted Book Redstone Power:** Defines how much redstone power the enchanted book will give
+### Book Power Configs:
+- **Normal Book Power:** How much power each normal book should give.
+- **Multiply Normal Book Power For Enchanted Book:** If set to true, the enchanted book power will be the normal book x multiplier 
+- **Enchanted Book Power Multiplier:** the multiplier for the enchanted book
+- **Enchanted Book Power:** Available if the "Multiply Normal Book" is set to false, allows you to set a custom value for the enchanted book.
+
+## For Forge Users
 This mod will not receive any future update for forge (will be changed to neoforge). The reasons are:
 - No newer Architectury API version for forge
-- Config API that using does not support newer forge versions.
+- Config API that I'm using does not support newer forge versions.
