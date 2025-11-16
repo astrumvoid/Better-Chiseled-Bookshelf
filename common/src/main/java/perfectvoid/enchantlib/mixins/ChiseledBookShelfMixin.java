@@ -1,4 +1,4 @@
-package perfectvoid.tyron.mixins;
+package perfectvoid.enchantlib.mixins;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -7,30 +7,25 @@ import net.minecraft.block.entity.ChiseledBookshelfBlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import perfectvoid.tyron.util.IEnchantmentPowerProvider;
+import perfectvoid.enchantlib.util.IEnchantmentPowerProvider;
 
-import static perfectvoid.tyron.config.ConfigGetter.getEnchantmentPowerOutput;
-import static perfectvoid.tyron.config.ConfigGetter.getRedstonePowerOutput;
-import static perfectvoid.tyron.config.Configs.modifyRedstoneOutput;
+import static perfectvoid.enchantlib.config.ConfigGetter.getBookEnchantmentPower;
+import static perfectvoid.enchantlib.config.ConfigGetter.getBookRedstonePower;
+import static perfectvoid.enchantlib.config.Configs.modifyRedstoneOutput;
 
 @Mixin(ChiseledBookshelfBlock.class)
-public abstract class ChiseledBookShelf extends BlockWithEntity implements IEnchantmentPowerProvider {
+public abstract class ChiseledBookShelfMixin extends BlockWithEntity implements IEnchantmentPowerProvider {
 
-    protected ChiseledBookShelf(Settings settings) {
+    protected ChiseledBookShelfMixin(Settings settings) {
         super(settings);
     }
 
-    public int getComparatorOutput(BlockState blockState, World world, BlockPos blockPos){
+    public int getComparatorOutput(BlockState blockState, World world, BlockPos blockPos) {
         if (world.isClient) return 0;
 
-        //Checks if the slot has a book in it. If it has, adds a value according to the type of book.
         if (world.getBlockEntity(blockPos) instanceof ChiseledBookshelfBlockEntity shelfEntity) {
-
-            if (!modifyRedstoneOutput) return shelfEntity.getLastInteractedSlot() + 1;
-
-            return getRedstonePower(shelfEntity);
-        }
-        else return 0;
+            return modifyRedstoneOutput ? getRedstonePower(shelfEntity) : shelfEntity.getLastInteractedSlot() + 1;
+        } else return 0;
     }
 
     private int getRedstonePower(ChiseledBookshelfBlockEntity shelfEntity){
@@ -38,9 +33,8 @@ public abstract class ChiseledBookShelf extends BlockWithEntity implements IEnch
 
         for (int slot = 0; slot < 6; slot++) {
             if (!shelfEntity.getStack(slot).isEmpty())
-                power += getRedstonePowerOutput(shelfEntity.getStack(slot));
+                power += getBookRedstonePower(shelfEntity.getStack(slot));
         }
-
         return power;
     }
 
@@ -50,9 +44,8 @@ public abstract class ChiseledBookShelf extends BlockWithEntity implements IEnch
 
         if (world.getBlockEntity(pos) instanceof ChiseledBookshelfBlockEntity shelfEntity) {
             for (int slot = 0; slot < 6; slot++) {
-
                 if (!shelfEntity.getStack(slot).isEmpty())
-                    powerInShelf += getEnchantmentPowerOutput(shelfEntity.getStack(slot));
+                    powerInShelf += getBookEnchantmentPower(shelfEntity.getStack(slot));
             }
         }
 

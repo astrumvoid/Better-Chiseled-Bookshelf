@@ -1,4 +1,4 @@
-package perfectvoid.tyron.mixins;
+package perfectvoid.enchantlib.mixins;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -15,14 +15,14 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import perfectvoid.tyron.EnchantLib;
-import perfectvoid.tyron.config.ConfigGetter;
-import perfectvoid.tyron.config.Configs;
-import perfectvoid.tyron.util.EnchantmentPowerUtil;
+import perfectvoid.enchantlib.EnchantLib;
+import perfectvoid.enchantlib.config.ConfigGetter;
+import perfectvoid.enchantlib.config.Configs;
+import perfectvoid.enchantlib.util.EnchantmentPowerUtil;
 
 import java.util.List;
 
-import static perfectvoid.tyron.config.Configs.XZSize;
+import static perfectvoid.enchantlib.config.Configs.XZSize;
 
 @Mixin(value = EnchantmentScreenHandler.class, priority = 100)
 public abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
@@ -52,7 +52,7 @@ public abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
 
                     if (XZSize > 15)
                         EnchantLib.logger.warn("Enchantment Table is set to a size of: " + XZSize + ". Performance might be hurt!");
-                    int powerLevel = (int) EnchantmentPowerUtil.getPowerFromValidProviders(world, pos, ConfigGetter.getTableSize(), Configs.obType);
+                    int powerLevel = (int) EnchantmentPowerUtil.getPowerFromArea(world, pos, ConfigGetter.getTableSize(), Configs.obType, Configs.getMoreShelves);
 
                     this.random.setSeed((this.seed.get()));
 

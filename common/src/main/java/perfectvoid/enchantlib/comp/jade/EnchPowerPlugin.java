@@ -1,4 +1,4 @@
-package perfectvoid.tyron.comp.jade;
+package perfectvoid.enchantlib.comp.jade;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockWithEntity;

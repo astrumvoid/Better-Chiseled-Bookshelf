@@ -1,4 +1,4 @@
-package perfectvoid.tyron;
+package perfectvoid.enchantlib;
 
 import dev.architectury.platform.Platform;
 import org.objectweb.asm.tree.ClassNode;
@@ -18,7 +18,6 @@ public class mixinLoader implements IMixinConfigPlugin {
         }
         return true;
     }
-
 
     @Override
     public void onLoad(String mixinClassName) {

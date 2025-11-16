@@ -1,9 +1,9 @@
-package perfectvoid.tyron;
+package perfectvoid.enchantlib;
 
 import eu.midnightdust.lib.config.MidnightConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import perfectvoid.tyron.config.Configs;
+import perfectvoid.enchantlib.config.Configs;
 
 public final class EnchantLib {
     public static final String MOD_ID = "enchantlib";

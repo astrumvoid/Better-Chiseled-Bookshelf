@@ -7,11 +7,11 @@ license = "MIT"
 modId = "enchantlib"
 version = "${version}"
 displayName = "enchantlib"
-authors = "VoidTyron"
+authors = "Astrum Void"
 description = '''
-
+Allows you to customize the enchantment table while also making chiseled bookshelves better.
 '''
-#logoFile = ""
+logoFile = "assets/enchantlib/icon.png"
 
 [[dependencies.enchantlib]]
 modId = "neoforge"

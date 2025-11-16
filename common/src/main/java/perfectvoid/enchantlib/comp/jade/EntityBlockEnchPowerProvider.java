@@ -1,14 +1,12 @@
-package perfectvoid.tyron.comp.jade;
+package perfectvoid.enchantlib.comp.jade;
 
-import dev.architectury.platform.Platform;
-import net.minecraft.block.Blocks;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
-import perfectvoid.tyron.util.IEnchantmentPowerProvider;
+import perfectvoid.enchantlib.util.IEnchantmentPowerProvider;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.ITooltip;
@@ -23,8 +21,6 @@ public enum EntityBlockEnchPowerProvider implements StreamServerDataProvider<Blo
     @Override
     public @NotNull Float streamData(BlockAccessor blockAccessor) {
         if (blockAccessor.getBlock() instanceof IEnchantmentPowerProvider powerProvider) {
-            if (Platform.isModLoaded("easymagic") && blockAccessor.getBlockState().isOf(Blocks.CHISELED_BOOKSHELF)) return 0f;
-
             return powerProvider.getEnchantmentPower(blockAccessor.getLevel(), blockAccessor.getPosition(), blockAccessor.getBlockState());
         }
 

@@ -1,6 +1,6 @@
-package perfectvoid.tyron.fabric;
+package perfectvoid.enchantlib.fabric;
 
-import perfectvoid.tyron.EnchantLib;
+import perfectvoid.enchantlib.EnchantLib;
 import net.fabricmc.api.ModInitializer;
 
 public final class EnchantLibFabric implements ModInitializer {

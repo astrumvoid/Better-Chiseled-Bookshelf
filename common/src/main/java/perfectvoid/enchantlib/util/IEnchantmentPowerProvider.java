@@ -1,4 +1,4 @@
-package perfectvoid.tyron.util;
+package perfectvoid.enchantlib.util;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;

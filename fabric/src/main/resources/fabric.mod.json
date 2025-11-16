@@ -3,9 +3,9 @@
   "id": "enchantlib",
   "version": "${version}",
   "name": "EnchantLib",
-  "description": "",
+  "description": "Allows you to customize the enchantment table while also making chiseled bookshelves better.",
   "authors": [
-    "Tyron"
+    "Astrum Void"
   ],
   "contact": {
     "homepage": ""
@@ -15,13 +15,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "perfectvoid.tyron.fabric.EnchantLibFabric"
+      "perfectvoid.enchantlib.fabric.EnchantLibFabric"
     ],
     "client": [
-      "perfectvoid.tyron.fabric.client.EnchantLibFabricClient"
+      "perfectvoid.enchantlib.fabric.client.EnchantLibFabricClient"
     ],
     "jade": [
-      "perfectvoid.tyron.comp.jade.EnchPowerPlugin"
+      "perfectvoid.enchantlib.comp.jade.EnchPowerPlugin"
     ]
   },
   "mixins": [

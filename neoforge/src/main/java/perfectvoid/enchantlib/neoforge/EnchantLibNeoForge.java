@@ -1,6 +1,6 @@
-package perfectvoid.tyron.neoforge;
+package perfectvoid.enchantlib.neoforge;
 
-import perfectvoid.tyron.EnchantLib;
+import perfectvoid.enchantlib.EnchantLib;
 import net.neoforged.fml.common.Mod;
 
 @Mod(EnchantLib.MOD_ID)

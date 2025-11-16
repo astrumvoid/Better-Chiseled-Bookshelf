@@ -1,4 +1,4 @@
-package perfectvoid.tyron.fabric.client;
+package perfectvoid.enchantlib.fabric.client;
 
 import net.fabricmc.api.ClientModInitializer;
 

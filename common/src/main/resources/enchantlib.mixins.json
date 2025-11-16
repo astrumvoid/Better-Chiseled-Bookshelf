@@ -1,18 +1,18 @@
 {
   "required": true,
-  "package": "perfectvoid.tyron.mixins",
+  "package": "perfectvoid.enchantlib.mixins",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
-  "plugin": "perfectvoid.tyron.mixinLoader",
+  "plugin": "perfectvoid.enchantlib.mixinLoader",
   "client": [
   ],
   "mixins": [
-    "ChiseledBookShelf",
+    "ChiseledBookShelfEntityMixin",
+    "ChiseledBookShelfMixin",
     "EasyMagicCompMixin",
-    "EnchantmentScreenHandlerMixin",
-    "EnchantmentTableMixin"
+    "EnchantingTableMixin",
+    "EnchantmentScreenHandlerMixin"
   ],
-  "priority": 100,
   "injectors": {
     "defaultRequire": 1
   }

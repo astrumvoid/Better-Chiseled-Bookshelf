@@ -1,9 +1,9 @@
-package perfectvoid.tyron.comp.jade;
+package perfectvoid.enchantlib.comp.jade;
 
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import perfectvoid.tyron.EnchantLib;
-import perfectvoid.tyron.util.IEnchantmentPowerProvider;
+import perfectvoid.enchantlib.EnchantLib;
+import perfectvoid.enchantlib.util.IEnchantmentPowerProvider;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.ITooltip;
@@ -17,6 +17,8 @@ public enum EnchPowerComponentProvider implements IBlockComponentProvider {
     @Override
     public void appendTooltip(ITooltip tooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
         if (blockAccessor.getBlock() instanceof IEnchantmentPowerProvider powerProvider) {
+            if (EntityBlockEnchPowerProvider.INSTANCE.decodeFromData(blockAccessor).isPresent()) return;
+
             float enchPower = powerProvider.getEnchantmentPower(blockAccessor.getLevel(), blockAccessor.getPosition(), blockAccessor.getBlockState());
 
             if (enchPower > 0f)
