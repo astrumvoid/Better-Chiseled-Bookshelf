@@ -9,19 +9,21 @@ architectury {
 }
 
 allprojects {
-    apply plugin: "java"
+    group = rootProject.maven_group
+    version = rootProject.mod_version
+}
+
+subprojects {
+    apply plugin: 'dev.architectury.loom'
     apply plugin: 'architectury-plugin'
     apply plugin: 'maven-publish'
 
-    group = rootProject.maven_group
-    version = rootProject.mod_version
+    base {
+        // Set up a suffixed format for the mod jar names, e.g. `example-fabric`.
+        archivesName = "$rootProject.archives_name-$project.name"
+    }
 
     repositories {
-        // Add repositories to retrieve artifacts from in here.
-        // You should only use this when depending on other mods because
-        // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-        // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-        // for more information about repositories.
         maven {
             url "https://www.cursemaven.com"
             content {
@@ -41,6 +43,18 @@ allprojects {
         }
     }
 
+    dependencies {
+        minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
+        mappings "net.fabricmc:yarn:$rootProject.yarn_mappings:v2"
+
+        modImplementation "maven.modrinth:jade:$rootProject.jade_version"
+        modImplementation "maven.modrinth:midnightlib:${project.midnightlib_version}-fabric"
+        modImplementation "maven.modrinth:jade:${project.jade_version}+fabric"
+        modImplementation "maven.modrinth:easy-magic:v8.0.1-1.20.1-Fabric"
+        modLocalRuntime "curse.maven:puzzles-lib-495476:5904751"
+        modLocalRuntime "curse.maven:forge-config-api-port-fabric-547434:5902421"
+    }
+
     java {
         // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
         // if it is present.
@@ -53,31 +67,6 @@ allprojects {
 
     tasks.withType(JavaCompile).configureEach {
         it.options.release = 17
-    }
-}
-
-subprojects {
-    apply plugin: 'dev.architectury.loom'
-
-    base {
-        // Set up a suffixed format for the mod jar names, e.g. `example-fabric`.
-        archivesName = "$rootProject.archives_name-$project.name"
-    }
-
-    loom {
-        silentMojangMappingsLicense()
-    }
-
-    dependencies {
-        minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
-        mappings loom.officialMojangMappings()
-
-        modImplementation "maven.modrinth:jade:$rootProject.jade_version"
-        modImplementation "curse.maven:easy-magic-456239:4658749"
-        modImplementation ("maven.modrinth:midnightlib:${rootProject.midnightlib_version}")
-        modLocalRuntime "curse.maven:puzzles-lib-495476:5904751"
-        modLocalRuntime "curse.maven:forge-config-api-port-fabric-547434:5902421"
-
     }
 
     // Configure Maven publishing.

@@ -1,51 +1,74 @@
 package aboe.enchantlib.mixin;
 
-import aboe.enchantlib.util.EnchantmentPowerUtils;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.EnchantmentTableBlock;
-import net.minecraft.world.level.block.state.BlockState;
+import aboe.enchantlib.EnchantLib;
+import aboe.enchantlib.config.ConfigGetter;
+import aboe.enchantlib.util.EnchantmentPowerUtil;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.EnchantingTableBlock;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
-import static aboe.enchantlib.config.Configs.particleChance;
-import static aboe.enchantlib.util.EnchantmentPowerUtils.GetBookShelfOffsets;
-import static aboe.enchantlib.util.EnchantmentPowerUtils.isValidPowerProvider;
+import static aboe.enchantlib.config.Configs.*;
+import static aboe.enchantlib.util.EnchantmentPowerUtil.getPowerFromBlock;
+import static aboe.enchantlib.util.EnchantmentPowerUtil.getPowerProvidersInArea;
 
-@Mixin(EnchantmentTableBlock.class)
-public abstract class EnchantmentTableMixin extends BaseEntityBlock {
+@Mixin(EnchantingTableBlock.class)
+public abstract class EnchantmentTableMixin extends BlockWithEntity {
+    @Unique
+    private static short tickUntilPerformanceUpdate = 0;
+    private int tickUntilRenderUpdate = 0;
+    public List<BlockPos> validProvidersInArea = new ArrayList<>();
 
-    protected EnchantmentTableMixin(Properties properties) {
-        super(properties);
+    protected EnchantmentTableMixin(Settings arg) {
+        super(arg);
     }
 
-    @Inject(method = "isValidBookShelf", at = @At(value = "HEAD"), cancellable = true)
-    private static void checkValidEnchantProvider(Level world, BlockPos blockPos, BlockPos offset, CallbackInfoReturnable<Boolean> cir){
-        cir.setReturnValue(isValidPowerProvider(world, blockPos, offset, EnchantmentPowerUtils.PathCheck.FULL));
-    }
+    @Inject(method = "randomDisplayTick", at = @At(value = "HEAD"))
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci) {
+        super.randomDisplayTick(state, world, pos, random);
 
-    //The animation is actually the same-
-    @Inject(method = "animateTick", at = @At(value = "HEAD"))
-    public void betterAnimation(BlockState blockState, Level world, BlockPos blockPos, RandomSource randomSource, CallbackInfo ci) {
-        super.animateTick(blockState, world, blockPos, randomSource);
-        for (BlockPos providerPos : GetBookShelfOffsets()) {
-            if (randomSource.nextInt(particleChance) == 0 && isValidPowerProvider(world, blockPos, providerPos, EnchantmentPowerUtils.PathCheck.FULL)) {
+//       This is just to try to avoid some massive lag that happens if your table size is too big. It sure doesn't eliminate it, but makes it a little more bearable
+        if (tickUntilRenderUpdate <= 0) {
+            validProvidersInArea = getPowerProvidersInArea(world, pos, ConfigGetter.getTableSize(), obType, getMoreShelves);
+            tickUntilRenderUpdate = 10;
+        } else --tickUntilRenderUpdate;
+
+        if (!disableLogging) echantlib$performanceWarning();
+
+        for (BlockPos providerOffset : validProvidersInArea) {
+            if (random.nextInt(particleChance) == 0 && getPowerFromBlock(world, pos.add(providerOffset), world.getBlockState(pos.add(providerOffset))) > 0)
                 world.addParticle(
                         ParticleTypes.ENCHANT,
-                        blockPos.getX() + 0.5, blockPos.getY() + 2.0, blockPos.getZ() + 0.5,
-                        (providerPos.getX() + randomSource.nextFloat()) - 0.5,
-                        (providerPos.getY() - randomSource.nextFloat()) - 1.0F,
-                        (providerPos.getZ() + randomSource.nextFloat()) - 0.5);
-            }
+                        pos.getX() + 0.5f, pos.getY() + 2f, pos.getZ() + 0.5,
+                        (providerOffset.getX() + random.nextFloat()) - 0.5f,
+                        (providerOffset.getY() - random.nextFloat()) - 1.0F,
+                        (providerOffset.getZ() + random.nextFloat()) - 0.5f
+                );
         }
     }
 
+    @Unique
+    private static void echantlib$performanceWarning(){
+        if (XZSize > 15 && tickUntilPerformanceUpdate <= 0) {
+            EnchantLib.logger.warn("Enchantment Table is set to a size of: {}. Performance might be hurt!", XZSize);
+            tickUntilPerformanceUpdate = 560;
+        } else --tickUntilPerformanceUpdate;
+    }
+
+    @Inject(method = "canAccessPowerProvider", at = @At(value = "HEAD"), cancellable = true)
+    private static void canAccessPowerProvider(World world, BlockPos tablePos, BlockPos providerOffset, CallbackInfoReturnable<Boolean> cir) {
+        cir.setReturnValue(EnchantmentPowerUtil.isPathObstructed(world, tablePos, providerOffset.mutableCopy(), obType));
+    }
 }

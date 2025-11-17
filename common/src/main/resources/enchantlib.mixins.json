@@ -7,10 +7,12 @@
   "client": [
   ],
   "mixins": [
-    "ChiseledBookShelf",
-    "EasyMagicComp",
-    "EnchantmentPowerMixin",
-    "EnchantmentTableMixin"
+    "ChiseledBookShelfEntityMixin",
+    "ChiseledBookShelfMixin",
+    "EasyMagicCompMixin",
+    "EnchantmentScreenHandlerMixin",
+    "EnchantmentTableMixin",
+    "TotalEnchantPowerJadeMixin"
   ],
   "priority": 100,
   "injectors": {
